@@ -26,4 +26,10 @@ select SaleID,SaleAmount,
 	end as SalesRanks
 from Sales
 -------------------------------
+-- case statement with order by 
 
+select * from Sales
+order by 
+	case when SaleAmount >= 300 then 1
+	else 2
+	 end, SaleID;
