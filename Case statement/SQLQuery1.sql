@@ -33,3 +33,32 @@ order by
 	case when SaleAmount >= 300 then 1
 	else 2
 	 end, SaleID;
+
+	 -------------------------------
+-- case statement with Update
+update Employees2 set Salary = 
+	case 
+		when PerformanceRating > 90 then Salary *1.15
+		when PerformanceRating between 75 and 90 then Salary * 1.10
+		when PerformanceRating between 50 and 74 then Salary * 1.05
+		else Salary
+		end;
+-------------------------------
+-- Nested case statement 
+
+select Name, Department, Salary ,
+	Bonus = case 
+		when Department = 'IT' then
+			case 
+				when PerformanceRating > 90 then Salary * 1.20
+				when PerformanceRating between 75 and 90 then Salary * 1.15
+				else Salary
+			end
+		when Department = 'Marketing' then
+			case 
+				when PerformanceRating  > 90 then Salary * 1.10
+				when PerformanceRating  between 75 and 90 then Salary * 1.05
+			else Salary 
+			end
+		end
+from Employees2
