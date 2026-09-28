@@ -34,7 +34,7 @@ order by
 	else 2
 	 end, SaleID;
 
-	 -------------------------------
+-------------------------------
 -- case statement with Update
 update Employees2 set Salary = 
 	case 
@@ -62,3 +62,17 @@ select Name, Department, Salary ,
 			end
 		end
 from Employees2
+-------------------------------
+-- case statement with group by 
+select count(*) as NumberOfEmployees,
+avg(Salary) as AvgSalaries,
+Ranking from
+
+(select Name, PerformanceRating, Salary,
+	Ranking = case 
+		when PerformanceRating > 90 then 'High'
+		when PerformanceRating between 70 and 90 then 'Mediam'
+		else 'Low'
+		end
+		from Employees2)
+	as PerformanceCategory group by Ranking;
