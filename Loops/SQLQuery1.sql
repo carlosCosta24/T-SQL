@@ -50,3 +50,19 @@ while @Balance > 0
 -----------------------------------
 --Nested while loop 
 -----------------------------------
+declare @Row int = 1;
+declare @Column int;
+declare @Result int;
+
+	while @Row <= 10
+		begin
+			set @Column = 1;
+			while @Column <= 10
+				begin 
+					set @Result = @Column * @Row;
+					print cast(@Row as varchar) + '*' + cast(@Column as varchar) 
+					+ '= ' + cast(@Result as varchar); 
+					set @Column = @Column +1;
+				end
+				set @Row = @Row +1;
+			end
