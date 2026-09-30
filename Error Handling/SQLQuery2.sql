@@ -29,3 +29,31 @@ select
 end catch
 
 
+-----------------
+--Throw statement
+	declare @NewStockQty int = -5;
+	begin try 
+		if @NewStockQty < 0
+		throw 50001, 'Stock quantity can''t be negative',1 ;
+		update Products set ProductQuantity = @NewStockQty where ProductID = 1;
+	end try
+	begin catch
+		select 
+			error_message() as ErrorMessage,
+			ERROR_NUMBER() as NumberOfError;
+	end catch
+
+-------------------------------
+-- @@error function
+use C21_DB1;
+insert into Departments (DepartmentID, Name) values (1, 'IT');
+declare @ErrorNumber int = @@error;
+
+if @ErrorNumber <> 0
+	begin
+		
+		print 'An error ocured while excuting the previous query'
+		print 'Error Number: ' + cast(@ErrorNumber as varchar);
+	end
+
+		
