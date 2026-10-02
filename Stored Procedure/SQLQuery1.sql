@@ -21,3 +21,68 @@ exec SP_AddPerson
 	@Department = 'Manegment',
 	@PersonID = @ID output;
 select @ID as NewPersonID;
+
+-- create stored procedure to get all people
+
+create procedure SP_GetAllPeople
+as 
+	begin 
+	select * from People;
+	end
+
+exec SP_GetAllPeople;
+
+-- create a stored procedure to get person by id 
+
+create procedure SP_GetPersonByID
+	 @PersonID int
+as
+	begin 
+		select * from People where PersonID = @PersonID
+	end
+
+exec SP_GetPersonByID
+	@PersonID = 1;
+-- Another way to get person
+alter procedure SP_GetPerson2
+
+@ID int,
+@Name varchar(50) output,
+@Email varchar(50)output,
+@Department varchar(20)output,
+@IsFound bit output
+as
+	begin
+		if exists (select 1 from People where PersonID = @ID)
+		begin
+			select 
+				@Name = Name,
+				@Email = Email,
+				@Department = Department
+				from People where PersonID = @ID;
+
+				set @IsFound = 1 ;
+		end
+		else
+		begin
+			set @IsFound = 0
+		end
+	end
+		
+declare @RID int =1;
+declare @RName varchar(20);
+declare @REmail varchar(20);
+declare @RDepartment varchar(20);
+declare @Result bit;
+
+exec SP_GetPerson2
+	@ID = @RID,
+	@Name = @RName output,
+	@Email = @REmail output,
+	@Department = @RDepartment output,
+	@IsFound = @Result output;
+	if @Result = 1
+		select @RName as Name, @RID as ID, @RDepartment as DepartmentName;
+	else
+		print 'person does''t exist';
+
