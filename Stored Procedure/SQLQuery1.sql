@@ -117,3 +117,26 @@ end
 
 exec SP_DeletePerson @IDKey = 2; 
 
+-- stored procedure to check existance of person 
+create procedure SP_PersonExist
+@SearchID int 
+as begin 
+	if exists (select * from People where PersonID = @SearchID)
+		begin 
+			return 1
+		end
+		else 
+		begin
+			return 0
+		end
+	end
+
+-- excute SP_DeletePerson
+declare @Result int;
+exec @Result = SP_PersonExist @SearchID = 2 
+
+if @Result = 1
+ print 'Person Exists'
+else
+	print 'Person doesn''t exist' 
+
