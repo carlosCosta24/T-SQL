@@ -140,3 +140,6 @@ if @Result = 1
 else
 	print 'Person doesn''t exist' 
 
+-- Delete stored procedure 
+
+drop procedure SP_AddPerson;
