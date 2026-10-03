@@ -85,4 +85,24 @@ exec SP_GetPerson2
 		select @RName as Name, @RID as ID, @RDepartment as DepartmentName;
 	else
 		print 'person does''t exist';
+--create a stored procedure to update person info
+alter procedure SP_UpdatePersonInfo
+@UpdateID int,
+@UpdateEmail varchar(50),
+@UpdateName varchar(20),
+@UpdateDepartment varchar(50)
+as begin
+	update People set Name = @UpdateName, Email = @UpdateEmail, 
+	Department = @UpdateDepartment
+	where PersonID = @UpdateID
+end
+
+--excute sp
+exec SP_UpdatePersonInfo
+@UpdateID = 1,
+@UpdateName = 'Carlos costa',
+@UpdateEmail = 'carloscosta.pen@gmail.com',
+@UpdateDepartment = 'Engineering';
+
+select * from People;
 
