@@ -143,3 +143,7 @@ else
 -- Delete stored procedure 
 
 drop procedure SP_AddPerson;
+
+--use SP_helptext
+
+exec sp_helptext 'SP_UpdatePersonInfo';
