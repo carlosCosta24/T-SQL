@@ -106,3 +106,14 @@ exec SP_UpdatePersonInfo
 
 select * from People;
 
+--stored procedure to delete person 
+create procedure SP_DeletePerson
+@IDKey int
+as begin 
+	delete from People where PersonID = @IDKey
+end
+	
+--excute Stored procedure
+
+exec SP_DeletePerson @IDKey = 2; 
+
