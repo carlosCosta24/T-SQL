@@ -33,3 +33,18 @@ select cast(getdate() as date) as DateOnly;
 select cast(getdate() as varchar) as DateOnly;
 
 select datepart(day, eomonth(getdate()))  as EndOfCurrentMonth;
+
+-- aggregate fun
+
+select Department, count(*) as EmployeesCount 
+from Employees2  group by Department; 
+
+select Department, AVG(PerformanceRating) as AvaragePerformance
+from Employees2 group by Department;
+
+select max(Salary) as MaxSalary from Employees2 ;
+
+select min(Salary) as MinSalary from Employees2 ;
+
+select Department, sum(salary) as SumOfSalary from Employees2
+group by Department;
