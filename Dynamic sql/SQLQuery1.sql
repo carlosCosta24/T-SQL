@@ -27,3 +27,11 @@ as begin
 	end
 
 exec SP_DynamicSlect2 'Students';
+
+-- sql injection ex
+
+declare @SqlQuery nvarchar(max);
+--set @SqlQuery = 'select * from Employees2 where PerformanceRating = 75';
+set @SqlQuery = 'select * from Employees2 where PerformanceRating = 75 or 1 =1';
+
+exec (@SqlQuery);
