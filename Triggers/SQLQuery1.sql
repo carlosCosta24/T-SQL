@@ -34,3 +34,17 @@ select * from Students;
 update Students set Grade = 99 where StudentID = 5;
 
 select * from StudentsUpdate;
+
+-- create after delete trigger 
+
+create trigger TRG_DeleteHistory on Students
+after delete
+	as begin 
+		insert into DeleteLog(Name, StudentId)
+		select Name, StudentID from deleted
+	end
+
+--test trigger
+delete from Students where StudentID = 7;
+
+select * from DeleteLog;
